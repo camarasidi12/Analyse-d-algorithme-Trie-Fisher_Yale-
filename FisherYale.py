@@ -47,7 +47,7 @@ i=1000
 while(i>0):
     i-=1
     debut=time.time()
-    quicksort(sattoloCycle(generator(650)))
+    quicksort(sattoloCycle(generator(300)))
     fin =time.time()
     temps+=fin-debut
 print(temps/1000)

@@ -39,7 +39,7 @@ def azerty():
 #print(arb[1])
 
 azerty()
-arbreCroissant([1,2,3,4,5,6,7,8,9,10]).view()
+#arbreCroissant([1,2,3,4,5,6,7,8,9,10]).view()
 print(printAbr(arbreCroissant([1,2,3,4,5,6,7,8,9,10])))
 
 
