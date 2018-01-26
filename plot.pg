@@ -1,0 +1,19 @@
+#!/usr/bin/gnuplot
+
+reset
+set terminal png
+
+set xlabel "Nombre d'éléments dans le tableau"
+
+set ylabel "Temps de calcul (nanosecondes)"
+
+set grid
+set style data linespoint
+
+set key box tm
+
+set title "Temps de calcul en fonction du nombre d'éléments"
+set output "plot.png"
+filename="inPlaceok.txt"
+plot x*log(x) title "n*log(n)", x*5*log(x)*10 title "5*n*log(n)", filename using 1:2 title "Tri rapide" with points pointtype 7 pointsize 0.2, \
+         filename using 1:3 title "Tri rapide en place" with points pointtype 7 pointsize 0.2 
