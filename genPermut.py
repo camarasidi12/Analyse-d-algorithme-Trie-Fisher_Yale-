@@ -43,5 +43,40 @@ azerty()
 print(printAbr(arbreCroissant([1,2,3,4,5,6,7,8,9,10])))
 
 
+f=open("ArbreBinaire.dot","w")
+def printArbre(a):
+	
+	if(a.racine!="#"):
+		f.write(`a.racine`+"\n")
+		if(a.fg.racine!="#"):
+			f.write("->")
+			printArbre(a.fg)
+			f.write("\n")
+		if(a.fd.racine!="#"):
+			f.write("\n")
+			f.write(`a.racine`+"->\n")
+			printArbre(a.fd)
+			f.write("\n")
+			
+		
+
+
+printArbre(arbreCroissant([1,2,3,4,5,6,7,8,9,10]))
+
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

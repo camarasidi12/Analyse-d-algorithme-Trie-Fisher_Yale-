@@ -2,7 +2,8 @@
 from random import randrange
 import numpy as np
 import time
-
+import sys
+sys.setrecursionlimit(150000)
 
 
 
@@ -35,6 +36,41 @@ def quicksort (L):
 	return np.concatenate(( np.concatenate( (quicksort(R[:p]),[R[p]]) ),quicksort(R[p+1:]) ))
 
 
+def partition(myList, start, end):
+    pivot = myList[start]
+    left = start+1
+    right = end
+    done = False
+    while not done:
+        while left <= right and myList[left] <= pivot:
+            left = left + 1
+        while myList[right] >= pivot and right >=left:
+            right = right -1
+        if right < left:
+            done= True
+        else:
+            # swap places
+            temp=myList[left]
+            myList[left]=myList[right]
+            myList[right]=temp
+    # swap start with myList[right]
+    temp=myList[start]
+    myList[start]=myList[right]
+    myList[right]=temp
+    return right
+
+def quicksortPlace(myList, start, end):
+    if start < end:
+        # partition the list
+        pivot = partition(myList, start, end)
+        # sort both halves
+        quicksortPlace(myList, start, pivot-1)
+        quicksortPlace(myList, pivot+1, end)
+    return myList
+    
+print(quicksortPlace([7,8,9,4,5,6,1,2,3],0,8))
+
+
 def generator(n):
 	""" Fonction de génération des éléments de la liste"""
 	L=np.array([],dtype="int")
@@ -43,15 +79,41 @@ def generator(n):
 	return L
 
 temps=0
-i=1000
-while(i>0):
-    i-=1
-    debut=time.time()
-    quicksort(sattoloCycle(generator(300)))
-    fin =time.time()
-    temps+=fin-debut
+i=1
+
+
+
+file=open("inPlace.txt","w") 
+while(i<=10000):
+    i+=10
+    debutPlace=time.time()
+    quicksortPlace(sattoloCycle(np.arange(i)),0,i-1)
+    finPlace =time.time()
+    tempsPlace=finPlace-debutPlace
+    
+    debutNotPlace=time.time()
+    quicksort(sattoloCycle(np.arange(i)))
+    finNotPlace =time.time()
+    tempsNotPlace=finNotPlace-debutNotPlace
+    #print("place "+`tempsPlace`)
+    #print("Not place "+`tempsNotPlace`)
+    file.writelines(`i`+" "+`tempsPlace`+" "+`tempsNotPlace`+"\n")
+file.close();
 print(temps/1000)
 #print((sattoloCycle(generator(40))))
+
+
+#file=open("inPlace.txt","w") 
+"""while(i<=1000):
+    i+=1
+    debut=time.time()
+    quicksort(sattoloCycle(generator(i)))
+    fin =time.time()
+    temps=fin-debut
+    file.writelines(`i`+" "+`temps`+"\n")
+file.close();
+print(temps/1000)
+#print((sattoloCycle(generator(40))))"""
 
 
 
